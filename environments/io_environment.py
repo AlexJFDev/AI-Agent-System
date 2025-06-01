@@ -16,7 +16,8 @@ class IOEnvironment(Environment):
         self.game_out = GameIO(out_filepath)
 
     def fetch_state(self, agent):
-        return self.game_out.read()
+        state = self.game_out.read()
+        return state
     
     def update_state(self, agent, action):
         self.game_in.write(action)

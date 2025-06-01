@@ -21,10 +21,10 @@ def main():
 
     agent = OregonAgent(environment, chatgpt, memory)
 
-    agent.step()
-    agent.step()
-    agent.step()
-    agent.step()
+    command = ""
+    while(command != "q"):
+        agent.step()
+        command = input()
 
 if __name__ == '__main__':
     main()

@@ -271,38 +271,20 @@ def initial_purchases(game_variables):
 
 
 def instructions():
-    print("This program simulates a trip over the oregon trail from Independence,")
-    print("Missouri to Oregon City, Oregon in 1847 your family of five will cover")
-    print("the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.\n")
-    print("You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.")
-    print("You will need to spend the rest of your money on the following items:\n")
-    print("     Oxen - you can spend $200-$300 on your team")
-    print("            the more you spend, the faster you'll go")
-    print("            because you'll have better animals\n")
-    print("     Food - the more you have, the less chance there")
-    print("            is of getting sick\n")
-    print("     Ammunition - $1 buys a belt of 50 bullets")
-    print("            you will need bullets for attacks by animals")
-    print("            and bandits, and for hunting food\n")
-    print("     Clothing - this is especially important for the cold")
-    print("            weather you will encounter when crossing")
-    print("            the mountains\n")
-    print("     Miscellaneous supplies - this includes medicine and")
-    print("            other things you will need for sickness and")
-    print("            emergency repairs\n\n")
-    print("You can spend all your money before you start your trip -")
-    print("or you can save some of your cash to spend at forts along")
-    print("the way when you run low. However, items cost more at")
-    print("the forts. You can also go hunting along the way to get")
-    print("more food.\n")
-    print("Whenever you have to use your trusty rifle along the way,")
-    print("you will be told to type in a word (one that sounds like a ")
-    print("gun shot). the faster you type in that word and hit the")
-    print("'return' key, the better luck you'll have with your gun.\n")
-    print("at each turn, all items are shown in dollar amounts")
-    print("except bullets")
-    print("when asked to enter money amounts, don't use a ""$"".\n")
-    print("good luck!!!")
+    print(
+        "This program simulates a trip over the oregon trail from Independence, Missouri to Oregon City, Oregon in 1847 your family of five will cover the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.\n\n"    
+        "You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.\n"    
+        "You will need to spend the rest of your money on the following items:\n"    
+        "     Oxen - you can spend $200-$300 on your team the more you spend, the faster you'll go because you'll have better animals\n"    
+        "     Food - the more you have, the less chance there is of getting sick\n"    
+        "     Ammunition - $1 buys a belt of 50 bullets you will need bullets for attacks by animals and bandits, and for hunting food\n"    
+        "     Clothing - this is especially important for the cold weather you will encounter when crossing the mountains\n"    
+        "     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n\n"    
+        "You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.\n"    
+        "At each turn, all items are shown in dollar amounts except bullets\n"    
+        "when asked to enter money amounts, don't use a '$'.\n"    
+        "good luck!!!"    
+    )
 
 
 def user_stats(game_variables):
@@ -706,8 +688,7 @@ def riders(game_variables):
 
 def start_game():
     game_variables = setup()
-    if builtins.input("Do you need instructions (yes/no) ") == 'yes':
-        instructions()
+    instructions()
 
     game_week_dates = ["March 29", "April 12", "April 26", "May 10", "May 24", "June 7", "June 21", "July 5", "July 19",
                        "August 2", "August 16", "August 31", "September 13", "September 27", "October 11", "October 25",

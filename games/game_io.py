@@ -1,6 +1,8 @@
 import time
 import sys
 
+out = sys.__stdout__
+
 class GameIO:
     """
     This class allows you to hook simple text based games up to an environment. The games should be set to print and get input from GameIO objects.

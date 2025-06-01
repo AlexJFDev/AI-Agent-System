@@ -26,10 +26,10 @@ class OregonAgent(Agent):
         # Create a prompt from memories and state
         memories_text = "\n".join(relevant_memories) if relevant_memories else "No relevant memories."
         prompt = (
-            f"You are playing the game Oregon Trail. "
+            f"You are playing the game Oregon Trail."
             f"The games current state:\n{initial_state}\n\n"
             f"Your relevant memories are:\n{memories_text}\n\n"
-            f"Based on the game's current state, please decide what action you would like to take next."
+            f"Based on the game's current state, please decide what action you would like to take next. Choose your action using only the numbers allowed do not use any words."
         )
         # Use the reasoning engine to determine what action to take
         action = self.engine.reason(prompt)
