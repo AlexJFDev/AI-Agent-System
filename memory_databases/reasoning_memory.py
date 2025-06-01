@@ -1,14 +1,13 @@
 from memory_databases import SimpleMemoryDatabase
 from interfaces import ReasoningEngine
 
-CONTEXT = """You are an AI memory summarizer. You create memories for AI agents.
-You will be provided with observations. These will generally consist of the agent's initial state, the action the agent chose to take, and optionally the resulting state.
-and produce exactly one concise memory entry that captures
-the most important cause-and-effect insight. 
-
-- Write in past tense, as if you're keeping a logbook.
+CONTEXT = """You are tasked with summarizing observations to create memories for AI agents.
+Each observation consists of the agent's state and the decision the agent took in response to that state.
+The memory you produce can be as small as one sentence and as long as a single paragraph. The memory should contain the key insights about the state and the action taken.
+Here are some tips:
+- Write in past tense and from the perspective of the agent.
 - Omit extraneous detail; focus on information that might matter later.
-- Do not include fluff or questions—only a factual sentence or two.
+- Do not include fluff or questions.
 - If existing memories are provided (as a list), do not repeat them verbatim; only add genuinely new insights."""
 
 class ReasoningMemoryDatabase(SimpleMemoryDatabase):

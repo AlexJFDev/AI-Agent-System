@@ -217,9 +217,12 @@ def buying_routine(object_name, min_amount, max_amount, wallet):
     my_purchase = 0
     while True:
         try:
-            my_purchase = int(input(f"Wallet: {wallet}. How much do you want to spend on your {object_name}: "))
+            my_purchase = input(f"Wallet: {wallet}. How much do you want to spend on your {object_name}: ")
+            my_purchase = my_purchase.replace("$", "")
+            my_purchase = int(my_purchase)
         except ValueError:
             print("Sorry, I didn't understand that.")
+            continue
         if my_purchase < min_amount:
             print(f"Sorry, that is not enough. You must spend at least {min_amount} on {object_name}.")
             continue
@@ -242,19 +245,19 @@ def initial_purchases(game_variables):
     oxen = buying_routine("oxen team", 200, 300, game_variables["cash"])
     game_variables["cash"] -= oxen
     # food
-    food = buying_routine("food", 1, 99999, game_variables["cash"])
+    food = buying_routine("food", 50, 99999, game_variables["cash"])
     game_variables["cash"] -= food
 
     # ammo
-    ammo = buying_routine("ammunition", 1, 99999, game_variables["cash"])
+    ammo = buying_routine("ammunition", 50, 99999, game_variables["cash"])
     game_variables["cash"] -= ammo
 
     # clothing
-    clothing = buying_routine("clothing", 1, 99999, game_variables["cash"])
+    clothing = buying_routine("clothing", 50, 99999, game_variables["cash"])
     game_variables["cash"] -= clothing
 
     # miscellaneous supplies
-    misc = buying_routine("miscellaneous supplies", 1, 99999, game_variables["cash"])
+    misc = buying_routine("miscellaneous supplies", 50, 99999, game_variables["cash"])
     game_variables["cash"] -= misc
 
     total = 700 - oxen - clothing - ammo - food - misc
@@ -279,18 +282,19 @@ def instructions():
     print("This program simulates a trip over the oregon trail from Independence, Missouri to Oregon City, Oregon in 1847 your family of five will cover the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.")
     input("Press any key to continue instructions.")
 
-    print("""You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.
-You will need to spend the rest of your money on the following items:    
+    print("""Your character has saved $900 to spend for the trip, and you've just paid $200 for a wagon.
+Once the game starts you will need to spend the rest of your money on the following items:    
      Oxen - you can spend $200-$300 on your team the more you spend, the faster you'll go because you'll have better animals   
      Food - the more you have, the less chance there is of getting sick
      Ammunition - $1 buys a belt of 50 bullets you will need bullets for attacks by animals and bandits, and for hunting food
      Clothing - this is especially important for the cold weather you will encounter when crossing the mountains
-     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n
-You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.""")
+     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n""")
     input("Press any key to continue instructions.")
 
-    print("""At each turn, all items are shown in dollar amounts except bullets
-when asked to enter money amounts, don't use a '$'.""")
+    print("You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.")
+    input("Press any key to continue instructions.")
+
+    print("At each turn, you will be given a status update representing the state of the game. It will include the date, how far you have traveled, the amount of cash you have, the amount of bullets you have, and the value of all your other items.")
     input("Press any key to continue instructions.")
 
     print("Good luck!!!")
@@ -310,11 +314,11 @@ def user_stats(game_variables):
     if game_variables["cash"] < 0:
         game_variables["cash"] = 0
 
-    print("Food:            % d" % game_variables["food"])
-    print("Bullets:         % d" % game_variables["ammunition"])
-    print("Clothing:        % d" % game_variables["clothing"])
-    print("Misc. Supplies:  % d" % game_variables["supplies"])
-    print("Cash:            % d" % game_variables["cash"])
+    print(f"Bullets:         {game_variables['ammunition']}")
+    print(f"Food:            ${game_variables['food']}")
+    print(f"Clothing:        ${game_variables['clothing']}")
+    print(f"Misc. Supplies:  ${game_variables['supplies']}")
+    print(f"Cash:            ${game_variables['cash']}")
     return
 
 

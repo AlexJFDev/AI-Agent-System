@@ -36,7 +36,7 @@ class OregonAgent(Agent):
         # Update state with the action
         self.environment.update_state(self, action)
         # Create a new memory
-        new_memory = f"In response to the state '{initial_state}' you decided to '{action}'."
+        new_memory = f"The agent was prompted with the state: '{initial_state}'\n\n The agent responded with: '{action}'."
         self.memory.remember(new_memory)
 
     def getIdentifier(self):

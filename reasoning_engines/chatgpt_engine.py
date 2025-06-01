@@ -18,7 +18,6 @@ class ChatGPTEngine(ReasoningEngine):
         self.model = model
 
     def reason(self, prompt: str, context: str = CONTEXT) -> str:
-        print(f"ChatGPT prompted with: {prompt}")
         response = openai.ChatCompletion.create(
             model=self.model,
             messages=[
@@ -28,5 +27,4 @@ class ChatGPTEngine(ReasoningEngine):
             temperature=0.2  # low randomness for consistent outputs
         )
         result = response["choices"][0]["message"]["content"].strip()
-        print(f"ChatGPT returned: {result}")
         return result
