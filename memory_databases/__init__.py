@@ -1,1 +1,1 @@
-from simple_memory import SimpleMemoryDatabase
+from .simple_memory import SimpleMemoryDatabase

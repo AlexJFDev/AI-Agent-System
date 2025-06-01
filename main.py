@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import time
 
 from agents import SimpleAgent
-from environments import SimpleInputEnvironment
+from environments import OregonTrail
 from memory_databases import SimpleMemoryDatabase
 from reasoning_engines import ChatGPTEngine
 
@@ -14,7 +14,7 @@ CHATGPT_KEY = os.getenv("OPEN_AI_KEY")
 
 def main():
     chatgpt = ChatGPTEngine(CHATGPT_KEY)
-    environment = SimpleInputEnvironment()
+    environment = OregonTrail()
     memory = SimpleMemoryDatabase(file_path=f"memories_{time.time()}.json")
 
     agent = SimpleAgent(environment, chatgpt, memory)

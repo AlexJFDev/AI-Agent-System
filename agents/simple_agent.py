@@ -34,10 +34,8 @@ class SimpleAgent(Agent):
         action = self.engine.reason(prompt)
         # Update state with the action
         self.environment.update_state(self, action)
-        # Fetch the resulting state
-        result_state = self.environment.fetch_state(self)
         # Create a new memory
-        new_memory = f"In response to the state '{initial_state}' you decided to '{action}' which resulted in the state '{result_state}'"
+        new_memory = f"In response to the state '{initial_state}' you decided to '{action}'."
         self.memory.remember(new_memory)
 
     def getIdentifier(self):
