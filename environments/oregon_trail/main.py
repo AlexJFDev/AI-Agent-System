@@ -51,31 +51,18 @@ def setup():
 
 def shooting():
     print("\nYou pull your gun, aim, and pull the trigger")
-    start_time = time.time()
-    seconds = 15
-    while True:
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-
-        if elapsed_time > seconds:
-            print("Pop")
-            my_score = 5
-            break
-        if keyboard.is_pressed(" "):
-            if elapsed_time < 1:
-                print("Wham!")
-                my_score = 1
-            elif elapsed_time < 2:
-                print("POW!")
-                my_score = 2
-            elif elapsed_time < 4:
-                print("Blam!")
-                my_score = 3
-            else:
-                print("Bang")
-                my_score = 4
-            break
-    return my_score
+    score = random.randrange(1, 6)
+    if score == 1:
+        print("Wham!")
+    elif score == 2:
+        print("POW!")
+    elif score == 3:
+        print("Blam!")
+    elif score == 4:
+        print("Bang")
+    elif score == 5:
+        print("Pop")
+    return score
 
 
 def illness(game_variables):
