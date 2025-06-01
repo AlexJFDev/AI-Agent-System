@@ -50,7 +50,9 @@ def setup():
         # cash in your wallet
         "cash": 700,
         # flag for fort option
-        "fort_flag": False
+        "fort_flag": False,
+        # Is dead
+        "dead": False
     }
     return game_variables
 
@@ -87,7 +89,7 @@ def illness(game_variables):
 
     # I'm sorry, but you don't have any more supplies.
     if game_variables["supplies"] < 10:
-        dying("no_supplies")
+        dying("no_supplies", game_variables)
 
     # There was a blizzard so let's return to it...
     if game_variables["blizzard"] == 1:
@@ -169,19 +171,20 @@ def blizzard(game_variables):
         # You ran out of food, sorry.
         if game_variables["food"] < 0:
             game_variables["food"] = 0
-            dying("no_food")
+            dying("no_food", game_variables)
 
         # You also ran out of supplies.
         if game_variables["supplies"] < 0:
             game_variables["supplies"] = 0
-            dying("no_supplies")
+            dying("no_supplies", game_variables)
 
         # slow down the loop, so it is readable for the user.
         time.sleep(5)
     return game_variables
 
 
-def dying(reason):
+def dying(reason, game_variables):
+    game_variables["dead"] = True
     if reason != "":
         if reason == "no_food":
             print("You ran out of food and starved to death.")
@@ -273,24 +276,25 @@ def initial_purchases(game_variables):
 
 
 def instructions():
-    print(
-"""
-This program simulates a trip over the oregon trail from Independence, Missouri to Oregon City, Oregon in 1847 your family of five will cover the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.
+    print("This program simulates a trip over the oregon trail from Independence, Missouri to Oregon City, Oregon in 1847 your family of five will cover the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.")
+    input("Press any key to continue instructions.")
 
-You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.
+    print("""You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.
 You will need to spend the rest of your money on the following items:    
      Oxen - you can spend $200-$300 on your team the more you spend, the faster you'll go because you'll have better animals   
      Food - the more you have, the less chance there is of getting sick
      Ammunition - $1 buys a belt of 50 bullets you will need bullets for attacks by animals and bandits, and for hunting food
      Clothing - this is especially important for the cold weather you will encounter when crossing the mountains
      Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n
-You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.
-At each turn, all items are shown in dollar amounts except bullets
-when asked to enter money amounts, don't use a '$'.
-Good luck!!!
-Press any key to start."""
-) 
-    input()
+You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.""")
+    input("Press any key to continue instructions.")
+
+    print("""At each turn, all items are shown in dollar amounts except bullets
+when asked to enter money amounts, don't use a '$'.""")
+    input("Press any key to continue instructions.")
+
+    print("Good luck!!!")
+    input("Press any key to start.") 
 
 
 def user_stats(game_variables):
@@ -387,7 +391,7 @@ def game_loop(game_variables):
         game_variables["illness"] = False
         game_variables["injury"] = False
         if game_variables["cash"] < 0:
-            dying("no_doctor")
+            dying("no_doctor", game_variables)
         print("Doctor's Bill is $20.")
 
     if game_variables["South_Pass_Mileage_Flag"]:
@@ -431,7 +435,7 @@ def game_loop(game_variables):
         game_variables = hunting(game_variables)
 
     if game_variables["food"] < 14:
-        dying("no_food")
+        dying("no_food", game_variables)
     while True:
         try:
             input_x = int(input("Do you want to eat (1) Poorly, (2) Moderately, or (3) Well: "))
@@ -498,7 +502,7 @@ def hunting(game_variables):
 
     game_variables["mileage"] = game_variables["mileage"] - 45
     if game_variables["food"] < 14:
-        dying("no_food")
+        dying("no_food", game_variables)
 
     return game_variables
 
@@ -566,7 +570,7 @@ def do_events(game_variables):
             game_variables["supplies"] = game_variables["supplies"] - 5
             if game_variables["supplies"] < 1:
                 print("You die of snakebite since you have no medicine")
-                dying("no_supplies")
+                dying("no_supplies", game_variables)
         elif new_event == 12:
             print("Wagon gets swamped fording river - lose food and clothes.")
             game_variables["food"] = game_variables["food"] - 30
@@ -686,7 +690,7 @@ def riders(game_variables):
         print("The Riders were hostile - Check for loses.")
         if game_variables["ammunition"] < 1:
             print("You ran out of bullets and got massacred by the riders!")
-            dying("injury")
+            dying("injury", game_variables)
     else:
         print("The Riders were friendly, but check for possible losses.")
     return game_variables
@@ -703,7 +707,7 @@ def start_game():
     game_variables = initial_purchases(game_variables)
     game_variables["game_turn"] = -1
 
-    while True:
+    while not game_variables["dead"]:
         try:
             game_variables["game_turn"] = game_variables["game_turn"] + 1
             if game_variables["game_turn"] < 19:
@@ -721,7 +725,7 @@ def start_game():
 
             else:
                 print("\nYou have been on the trail too long\nYour family dies in the first blizzard of winter.")
-                dying("")
+                dying("", game_variables)
 
         except TypeError:
             print(game_variables)
