@@ -33,7 +33,7 @@ class SimpleAgent(Agent):
         # Use the reasoning engine to determine what action to take
         action = self.engine.reason(prompt)
         # Update state with the action
-        self.environment.update_state(action)
+        self.environment.update_state(self, action)
         # Fetch the resulting state
         result_state = self.environment.fetch_state(self)
         # Create a new memory
