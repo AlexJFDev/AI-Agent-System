@@ -6,7 +6,7 @@ class ChatGPTEngine(ReasoningEngine):
     Concrete ReasoningEngine using OpenAI's ChatGPT API.
     """
 
-    def __init__(self, api_key: str, model: str = "gpt-4o"):
+    def __init__(self, api_key: str, model: str = "gpt-4.1-nano"):
         openai.api_key = api_key
         self.model = model
 
