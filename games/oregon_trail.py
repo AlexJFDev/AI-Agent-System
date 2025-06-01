@@ -1,5 +1,4 @@
 import random
-import builtins
 import random
 import time
 
@@ -215,18 +214,21 @@ def buying_routine(object_name, min_amount, max_amount, wallet):
     my_purchase = 0
     while True:
         try:
-            my_purchase = int(builtins.input(
-                "Wallet: " + str(wallet) + ". How much do you want to spend on your " + object_name + ": "))
+            my_purchase = int(input(f"Wallet: {wallet}. How much do you want to spend on your {object_name}: "))
         except ValueError:
             print("Sorry, I didn't understand that.")
         if my_purchase < min_amount:
-            print("Sorry, that is not enough.")
+            print(f"Sorry, that is not enough. You must spend at least {min_amount} on {object_name}.")
             continue
         elif my_purchase > max_amount:
-            print("Sorry, that is too much.")
+            print(f"Sorry, that is too much. You can only spend {max_amount} on {object_name}.")
             continue
         elif my_purchase > wallet:
-            print("You don't have that much - keep your spending down.")
+            print(f"You cannot spend {my_purchase} because you only have {wallet}.")
+        elif wallet == 0:
+            print(f"You are out of funds in your wallet and cannot buy any {object_name}")
+            my_purchase = 0
+            break
         else:
             break
     return my_purchase
@@ -272,19 +274,23 @@ def initial_purchases(game_variables):
 
 def instructions():
     print(
-        "This program simulates a trip over the oregon trail from Independence, Missouri to Oregon City, Oregon in 1847 your family of five will cover the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.\n\n"    
-        "You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.\n"    
-        "You will need to spend the rest of your money on the following items:\n"    
-        "     Oxen - you can spend $200-$300 on your team the more you spend, the faster you'll go because you'll have better animals\n"    
-        "     Food - the more you have, the less chance there is of getting sick\n"    
-        "     Ammunition - $1 buys a belt of 50 bullets you will need bullets for attacks by animals and bandits, and for hunting food\n"    
-        "     Clothing - this is especially important for the cold weather you will encounter when crossing the mountains\n"    
-        "     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n\n"    
-        "You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.\n"    
-        "At each turn, all items are shown in dollar amounts except bullets\n"    
-        "when asked to enter money amounts, don't use a '$'.\n"    
-        "good luck!!!"    
-    )
+"""
+This program simulates a trip over the oregon trail from Independence, Missouri to Oregon City, Oregon in 1847 your family of five will cover the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.
+
+You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.
+You will need to spend the rest of your money on the following items:    
+     Oxen - you can spend $200-$300 on your team the more you spend, the faster you'll go because you'll have better animals   
+     Food - the more you have, the less chance there is of getting sick
+     Ammunition - $1 buys a belt of 50 bullets you will need bullets for attacks by animals and bandits, and for hunting food
+     Clothing - this is especially important for the cold weather you will encounter when crossing the mountains
+     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n
+You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.
+At each turn, all items are shown in dollar amounts except bullets
+when asked to enter money amounts, don't use a '$'.
+Good luck!!!
+Press any key to start."""
+) 
+    input()
 
 
 def user_stats(game_variables):
@@ -393,7 +399,7 @@ def game_loop(game_variables):
     if not game_variables["fort_flag"]:
         while True:
             try:
-                input_x = int(builtins.input("\nDo you want to (1) Hunt, or (2) Continue: "))
+                input_x = int(input("\nDo you want to (1) Hunt, or (2) Continue: "))
             except ValueError:
                 print("Sorry, I didn't understand that.")
             if input_x < 1 or input_x > 2:
@@ -408,7 +414,7 @@ def game_loop(game_variables):
     else:
         while True:
             try:
-                input_x = int(builtins.input("\nDo you want to (1) Stop at the next fort, (2) Hunt, or (3) Continue: "))
+                input_x = int(input("\nDo you want to (1) Stop at the next fort, (2) Hunt, or (3) Continue: "))
             except ValueError:
                 print("Sorry, I didn't understand that.")
             if input_x < 1 or input_x > 3:
@@ -428,7 +434,7 @@ def game_loop(game_variables):
         dying("no_food")
     while True:
         try:
-            input_x = int(builtins.input("Do you want to eat (1) Poorly, (2) Moderately, or (3) Well: "))
+            input_x = int(input("Do you want to eat (1) Poorly, (2) Moderately, or (3) Well: "))
         except ValueError:
             print("Sorry, I didn't understand that.")
         if (game_variables["food"] - (8 - 5 * input_x)) < game_variables["food"]:
@@ -613,7 +619,7 @@ def riders(game_variables):
 
         while True:
             try:
-                my_tactic = int(builtins.input("\nTactics\n(1) Run (2) Attack (3) Continue (4) Circle Wagons: "))
+                my_tactic = int(input("\nTactics\n(1) Run (2) Attack (3) Continue (4) Circle Wagons: "))
             except ValueError:
                 print("Sorry, I didn't understand that.")
             if my_tactic > 0 or my_tactic < 4:
