@@ -488,7 +488,7 @@ def fort(game_variables):
     game_variables["clothing"] = game_variables["clothing"] + int(.66 * ammo) * 50
 
     # miscellaneous supplies
-    misc = buying_routine("clothing", 0, 9999, game_variables["cash"])
+    misc = buying_routine("miscellaneous supplies", 0, 9999, game_variables["cash"])
     game_variables["cash"] = game_variables["cash"] - misc
     game_variables["supplies"] = game_variables["supplies"] + int(.66 * misc)
 
