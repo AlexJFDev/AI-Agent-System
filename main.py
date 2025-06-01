@@ -18,7 +18,7 @@ NANO = "gpt-4.1-nano"
 
 CHATGPT_KEY = os.getenv("OPEN_AI_KEY")
 
-def main():
+def play_oregon_trail():
     environment = IOEnvironment(GAME_IN_FILEPATH, GAME_OUT_FILEPATH)
     chatgpt = ChatGPTEngine(CHATGPT_KEY, model=MINI)
     memory = ReasoningMemoryDatabase(chatgpt, file_path=f"memories_{time.time()}.json")
@@ -31,4 +31,4 @@ def main():
         command = input()
 
 if __name__ == '__main__':
-    main()
+    play_oregon_trail()
