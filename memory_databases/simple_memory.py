@@ -2,7 +2,7 @@ import json
 import os
 from interfaces import MemoryDatabase
 
-class SimpleFileMemoryDatabase(MemoryDatabase):
+class SimpleMemoryDatabase(MemoryDatabase):
     """
     A simple file-backed implementation of MemoryDatabase.
     Memories are stored in a JSON file and loaded on startup.

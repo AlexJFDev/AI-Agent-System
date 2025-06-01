@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-from simple_agent import SimpleAgent
-from simple_environment import SimpleInputEnvironment
-from simple_memory import SimpleFileMemoryDatabase
-from chatgpt_engine import ChatGPTEngine
+from agents import SimpleAgent
+from environments import SimpleInputEnvironment
+from memory_databases import SimpleMemoryDatabase
+from reasoning_engines import ChatGPTEngine
 
 load_dotenv()
 
@@ -13,7 +13,7 @@ CHATGPT_KEY = os.getenv("OPEN_AI_KEY")
 def main():
     chatgpt = ChatGPTEngine(CHATGPT_KEY)
     environment = SimpleInputEnvironment()
-    memory = SimpleFileMemoryDatabase()
+    memory = SimpleMemoryDatabase()
 
     agent = SimpleAgent(environment, chatgpt, memory)
 
