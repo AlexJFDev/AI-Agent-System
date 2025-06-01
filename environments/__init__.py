@@ -1,2 +1,2 @@
 from .simple_environment import SimpleInputEnvironment
-from .oregon_trail.oregon_trail import OregonTrail
+from .io_environment import IOEnvironment
