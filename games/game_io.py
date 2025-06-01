@@ -1,6 +1,5 @@
 import time
 import sys
-out = sys.__stdout__
 
 class GameIO:
     """
@@ -24,7 +23,6 @@ class GameIO:
                 file.seek(0)
                 contents = file.read()
                 if contents:
-                    print(contents, file=out)
                     file.seek(0)
                     file.truncate()
                     return contents

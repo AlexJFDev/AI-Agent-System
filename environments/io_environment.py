@@ -1,7 +1,7 @@
 from interfaces import Environment
 from interfaces import Agent
 
-from ..games.game_io import GameIO
+from games import GameIO
 
 GAME_IN_FILEPATH = "game_in.txt"
 GAME_OUT_FILEPATH = "game_out.txt"
