@@ -7,3 +7,6 @@ You need to `pip install` `openai` and `python-dotenv`.
 
 ## Interfaces
 This project defines four interfaces for an AI Agent system. They are intended to be easily interchangeable.
+
+## Other
+Oregon trail is from here: [https://github.com/KeithMFoster/the-oregon-trail](https://github.com/KeithMFoster/the-oregon-trail).
