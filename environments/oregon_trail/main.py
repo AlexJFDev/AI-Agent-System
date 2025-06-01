@@ -2,8 +2,15 @@ import random
 import builtins
 import random
 import time
-import keyboard
 
+import sys
+from game_io import GameIO
+
+GAME_OUT_FILEPATH = "game_out.txt"
+GAME_IN_FILEPATH = "game_in.txt"
+
+sys.stdout = GameIO(GAME_OUT_FILEPATH)
+sys.stdin = GameIO(GAME_IN_FILEPATH)
 
 def setup():
     # set up the variables to be used in game
@@ -188,20 +195,20 @@ def dying(reason):
             mishap = "injuries."
             print("You died of " + mishap)
 
-    print("Due to your unfortunate situation, there are a few")
-    print("formalities we must go through\n")
-    print("Would you like a minister?")
-    print("Would you like a fancy funeral?")
-    print("Would you like us to inform your next of kin?")
+    # print("Due to your unfortunate situation, there are a few")
+    # print("formalities we must go through\n")
+    # print("Would you like a minister?")
+    # print("Would you like a fancy funeral?")
+    # print("Would you like us to inform your next of kin?")
 
-    print("But your Aunt Sadie in St. Louis is really worried about you.")
+    # print("But your Aunt Sadie in St. Louis is really worried about you.")
 
-    print("That will be $4.50 for the telegraph charge.\n")
-    print("We thank you for this information and we are sorry you")
-    print("didn't make it to the great territory of Oregon")
-    print("Better luck next time.\n\n")
-    print("\tSincerely,")
-    print("\tThe Oregon City Chamber of Commerce")
+    # print("That will be $4.50 for the telegraph charge.\n")
+    # print("We thank you for this information and we are sorry you")
+    # print("didn't make it to the great territory of Oregon")
+    # print("Better luck next time.\n\n")
+    # print("\tSincerely,")
+    # print("\tThe Oregon City Chamber of Commerce")
 
 
 def buying_routine(object_name, min_amount, max_amount, wallet):
