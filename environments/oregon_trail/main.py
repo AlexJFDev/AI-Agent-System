@@ -21,8 +21,6 @@ def setup():
         "event_counter": 0,
         # turn number for setting date
         "game_turn": 0,
-        # choice of shooting expertise level
-        "shooting_expert_level": 0,
         # choice of eating
         "eating_choice": 0,
         # amount spent on food
@@ -721,15 +719,6 @@ def start_game():
                        "August 2", "August 16", "August 31", "September 13", "September 27", "October 11", "October 25",
                        "November 8", "November 22", "December 6", "December 20"]
 
-    print("\nHow good a shot are you with your rifle?")
-    print("\t(1) ace marksman,  (2) good shot,  (3) fair to middlin'")
-    print("\t(4) need more practice,  (5) shaky knees")
-    my_shooting = abs(int(builtins.input(
-        "Enter one of the above -- the better you claim you are, the\n"
-        "faster you'll have to be with your gun to be successful: ")))
-    if my_shooting > 5 or my_shooting < 1:
-        my_shooting = 0
-    game_variables["shooting_expert_level"] = my_shooting
     game_variables = initial_purchases(game_variables)
     game_variables["game_turn"] = -1
 
