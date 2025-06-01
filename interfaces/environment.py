@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from agent import Agent
+from .agent import Agent
 
 class Environment(ABC):
     """

@@ -11,8 +11,16 @@ class SimpleAgent(Agent):
         self.identifier: str = identifier
 
     def step(self):
+        """
+        For this agent each step:
+            1. Fetches state
+            2. Fetches relevant memories
+            3. Prompts the reasoning engine with state and memories
+            4. Updates state
+            5. Makes a new memory
+        """
         # Fetch the initial state for this step
-        initial_state = self.environment.fetch_state()
+        initial_state = self.environment.fetch_state(self)
         # Get relevant memories
         relevant_memories = self.memory.recall(initial_state)
         # Create a prompt from memories and state
@@ -27,7 +35,10 @@ class SimpleAgent(Agent):
         # Update state with the action
         self.environment.update_state(action)
         # Fetch the resulting state
-        result_state = self.environment.fetch_state()
+        result_state = self.environment.fetch_state(self)
         # Create a new memory
         new_memory = f"In response to the state {initial_state} you decided to {action} which resulted in the state {result_state}"
         self.memory.remember(new_memory)
+
+    def getIdentifier(self):
+        return self.identifier
