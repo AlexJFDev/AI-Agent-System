@@ -2,7 +2,7 @@ from interfaces import Agent, ReasoningEngine, MemoryDatabase, Environment
 
 class OregonAgent(Agent):
     """
-    A simple implementation of the Agent ABC. It fetches state, gets relevant memories, calls the reason engine to decide what to do, and updates its state.
+    A simple implementation of the Agent for playing Oregon Trail. It fetches state, gets relevant memories, calls the reason engine to decide what to do, and updates its state.
     """
     def __init__(self, environment: Environment, engine: ReasoningEngine, memory: MemoryDatabase, identifier: str = "Agent"):
         self.environment: Environment = environment
@@ -12,7 +12,7 @@ class OregonAgent(Agent):
 
     def step(self):
         """
-        For this agent each step:
+        Each step:
             1. Fetches state
             2. Fetches relevant memories
             3. Prompts the reasoning engine with state and memories
