@@ -11,13 +11,20 @@ class IOEnvironment(Environment):
     An environment intended to interact with text files through GameIO.
     """
 
-    def __init__(self, in_filepath, out_filepath):
+    def __init__(self, in_filepath, out_filepath, verbose=False):
         self.game_in = GameIO(in_filepath)
         self.game_out = GameIO(out_filepath)
+        self.verbose = verbose
 
     def fetch_state(self, agent):
         state = self.game_out.read()
+        self.print(state)
         return state
     
     def update_state(self, agent, action):
+        self.print(action)
         self.game_in.write(action)
+
+    def print(self, *args):
+        if self.verbose:
+            print(*args)
