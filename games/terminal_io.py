@@ -3,9 +3,9 @@ import sys
 
 out = sys.__stdout__
 
-class GameIO:
+class FileIO:
     """
-    This class allows you to hook simple text based games up to an environment. The games should be set to print and get input from GameIO objects.
+    This class allows you to hook simple text based games up to an environment. The games should be set to print and get input from FileIO objects.
     """
     def __init__(self, filepath):
         self.filepath = filepath
