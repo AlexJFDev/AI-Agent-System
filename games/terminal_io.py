@@ -5,7 +5,7 @@ out = sys.__stdout__
 
 class FileIO:
     """
-    This class allows you to hook simple text based games up to an environment. The games should be set to print and get input from FileIO objects.
+    FileIO provides simple file-based input/output operations over a given file path.
     """
     def __init__(self, filepath):
         self.filepath = filepath
