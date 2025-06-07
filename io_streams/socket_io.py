@@ -2,8 +2,13 @@ import io
 import socket
 import codecs
 
+from sys import __stdout__
+
+def std_print(message):
+    print(message, file=__stdout__)
+
 class SocketIO(io.TextIOBase):
-    def __init__(self, connection: socket.socket, encoding: str = "utf-8", newline: str = "\n"):
+    def __init__(self, connection: socket.socket, encoding: str = "utf-8", newline: str = "\n", message_delimiter: bytes = b"\0"):
         """
         Wraps a connected socket.socket and presents a TextIOBase-compatible interface.
         - `connection` must already be a connected, blocking socket.

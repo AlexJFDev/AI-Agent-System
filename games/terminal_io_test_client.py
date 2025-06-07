@@ -10,16 +10,20 @@ def run_client(host, port):
 
         def receive_loop():
             while True:
-                line = sock_io.readline()
-                if not line:
-                    print("Connection closed")
+                # line = sock_io.readline()
+                # if not line:
+                #     print("Connection closed")
+                #     break
+                ch = sock_io.read(1)
+                if not ch:
+                    print("connection closed")
                     break
-                print(line, end="")
+                print(ch, end="", flush=True)
 
         threading.Thread(target=receive_loop, daemon=True).start()
 
         while(True):
-            sock_io.write(f"{input()}")
+            sock_io.write(f"{input()}\n")
 
 if __name__ == "__main__":
     run_client(HOST, PORT)

@@ -6,9 +6,6 @@ from io_streams import SocketIO, HOST, PORT
 
 from games.oregon_trail import start_game
 
-def true_print(message):
-    print(message, file=sys.__stdout__)
-
 def run_server(host, port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_sock:
         server_sock.bind((HOST, PORT))
