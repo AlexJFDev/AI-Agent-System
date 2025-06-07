@@ -3,7 +3,7 @@ import socket
 import codecs
 
 class SocketIO(io.TextIOBase):
-    def __init__(self, connection: socket.socket, encoding: str = "utf-8", newline: str = "\0"):
+    def __init__(self, connection: socket.socket, encoding: str = "utf-8", newline: str = "\n"):
         """
         Wraps a connected socket.socket and presents a TextIOBase-compatible interface.
         - `connection` must already be a connected, blocking socket.
@@ -188,7 +188,7 @@ class SocketIO(io.TextIOBase):
         if not isinstance(s, str):
             raise TypeError("write() argument must be str, not {}".format(type(s).__name__))
 
-        data_bytes = s.encode(f"{self._encoding}{self._newline}")
+        data_bytes = s.encode(self._encoding)
         self._write_buffer += data_bytes
         if b"\n" in data_bytes:
             self.flush()
