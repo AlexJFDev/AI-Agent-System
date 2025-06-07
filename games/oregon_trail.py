@@ -279,7 +279,7 @@ Once the game starts you will need to spend the rest of your money on the follow
      Food - the more you have, the less chance there is of getting sick
      Ammunition - $1 buys a belt of 50 bullets you will need bullets for attacks by animals and bandits, and for hunting food
      Clothing - this is especially important for the cold weather you will encounter when crossing the mountains
-     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs\n""")
+     Miscellaneous supplies - this includes medicine and other things you will need for sickness and emergency repairs""")
     input("Press any key to continue instructions.")
 
     print("You can spend all your money before you start your trip - or you can save some of your cash to spend at forts along the way when you run low. However, items cost more at the forts. You can also go hunting along the way to get more food.")
