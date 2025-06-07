@@ -23,7 +23,7 @@ class SocketIO(io.TextIOBase):
         # Decoder to handle partial multibyte sequences:
         self._decoder = codecs.getincrementaldecoder(self._encoding)()
         # Internal text buffer (decoded) for reads:
-        self._text_buffer = ""  
+        self._text_buffer = ""
         # Internal byte buffer for writes:
         self._write_buffer = b""
         self._closed = False
@@ -74,11 +74,18 @@ class SocketIO(io.TextIOBase):
         """
         if self._closed:
             raise ValueError("I/O operation on closed file.")
+        
         if size is None:
             size = -1
 
-        # If user wants all data until EOF:
-        if size < 0:
+        if size > 0:
+            # Fill `self._text_buffer` up to `size`
+            self._fill_text_buffer(size)
+            result = self._text_buffer[:size]
+            self._text_buffer = self._text_buffer[size:]
+            return result
+        else:
+            # If user wants all data until EOF:
             # Keep reading until the socket is fully closed by the peer
             while True:
                 try:
@@ -88,29 +95,9 @@ class SocketIO(io.TextIOBase):
                 if not chunk:
                     break
                 self._text_buffer += self._decoder.decode(chunk)
+            
             # Decode any final buffered bytes
             self._text_buffer += self._decoder.decode(b"", final=True)
-            result = self._text_buffer
-            self._text_buffer = ""
-            return result
-
-        # Otherwise, read at most `size` characters
-        # 1) If we already have >= size characters buffered, just slice out.
-        if len(self._text_buffer) >= size:
-            result = self._text_buffer[:size]
-            self._text_buffer = self._text_buffer[size:]
-            return result
-
-        # 2) Otherwise, fill more text into the buffer until we have `size` or no more incoming.
-        self._fill_text_buffer(min_chars=size)
-
-        # Now either _text_buffer has >= size, or the socket has no more data right now:
-        if len(self._text_buffer) >= size:
-            result = self._text_buffer[:size]
-            self._text_buffer = self._text_buffer[size:]
-            return result
-        else:
-            # Return whatever is left
             result = self._text_buffer
             self._text_buffer = ""
             return result
