@@ -1,5 +1,5 @@
 import socket
-from __init__ import SocketIO, GAME_HOST, GAME_PORT
+from io_streams import SocketIO, HOST, PORT
 
 import threading
 
@@ -10,18 +10,16 @@ def run_client(host, port):
 
         def receive_loop():
             while True:
-                ch = sock_io.read(1)
-                if not ch:
-                    # EOF (socket closed)
+                line = sock_io.readline()
+                if not line:
                     print("Connection closed")
                     break
-                # Print it immediately, without waiting for a newline
-                print(ch, end='', flush=True)
+                print(line, end="")
 
         threading.Thread(target=receive_loop, daemon=True).start()
 
         while(True):
-            sock_io.write(f"{input()}\n")
+            sock_io.write(f"{input()}")
 
 if __name__ == "__main__":
-    run_client(GAME_HOST, GAME_PORT)
+    run_client(HOST, PORT)
