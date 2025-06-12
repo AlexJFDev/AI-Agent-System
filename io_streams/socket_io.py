@@ -263,3 +263,52 @@ class SocketIO(io.TextIOBase):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
+class TextBuffer:
+    def __init__(self, buffer:str="", delimiter:str="\n"):
+        self._buffer = buffer
+        self._delimiter = delimiter
+
+    def push(self, text: str) -> None:
+        self._buffer += text
+
+    def peek(self, n: int = None) -> str:
+        if n is None: return self._buffer
+        return self._buffer[:n]
+
+    def pop(self, n: int = None) -> str:
+        """
+        Removes and returns a portion of the buffer up to and including the delimiter, or up to `n` characters.
+
+        Args:
+            n (int, optional): The maximum number of characters to remove from the buffer. If not specified, removes up to and including the delimiter.
+
+        Returns:
+            str: The removed portion of the buffer.
+
+        Notes:
+            - If the delimiter is not found, removes up to `n` characters if specified, otherwise removes the entire buffer.
+            - If `n` is specified and less than the position of the delimiter, removes only `n` characters.
+        """
+        index = self._buffer.find(self._delimiter)
+        if index >= 0:
+            index += len(self._delimiter)
+        if n is not None and n < index:
+            index = n
+        if index < 0:
+            index = len(self)
+        part = self._buffer[:index]
+        self._buffer = self._buffer[index:]
+        return part
+    
+    def __len__(self) -> int:
+        return len(self._buffer)
+    
+    def is_empty(self) -> bool:
+        return len(self) == 0
+    
+    def clear(self) -> None:
+        self._buffer = ""
+
+    def __repr__(self):
+        return f"TextBuffer delimiter={repr(self._delimiter)} buffer={repr(self._buffer)}"
