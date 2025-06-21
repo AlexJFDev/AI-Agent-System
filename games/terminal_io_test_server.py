@@ -2,7 +2,7 @@ import socket
 
 import sys
 
-from io_streams import SocketIO, HOST, PORT
+from io_streams import HOST, PORT
 
 from games.oregon_trail import start_game
 
@@ -15,11 +15,13 @@ def run_server(host, port):
         client_sock, client_addr = server_sock.accept()
         print(f"Connection from {client_addr}")
 
-        with SocketIO(client_sock) as client_sock:
-            sys.stdin = client_sock
-            sys.stdout = client_sock
+        client_in = client_sock.makefile(mode="r")
+        client_out = client_sock.makefile(mode="w")
+        
+        sys.stdin = client_in
+        sys.stdout = client_out
 
-            start_game()
+        start_game()
 
 if __name__ == "__main__":
     run_server(HOST, PORT)

@@ -1,20 +1,17 @@
 import socket
-from io_streams import SocketIO, HOST, PORT
+from io_streams import HOST, PORT
 
 import threading
 
 def run_client(host, port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.connect((host, port))
-        sock_io = SocketIO(sock)
+        server_in = sock.makefile(mode="r")
+        server_out = sock.makefile(mode="w")
 
         def receive_loop():
             while True:
-                # line = sock_io.readline()
-                # if not line:
-                #     print("Connection closed")
-                #     break
-                ch = sock_io.read(1)
+                ch = server_in.read(1)
                 if not ch:
                     print("connection closed")
                     break
@@ -23,7 +20,8 @@ def run_client(host, port):
         threading.Thread(target=receive_loop, daemon=True).start()
 
         while(True):
-            sock_io.write(f"{input()}\n")
+            server_out.write(f"{input()}\n")
+            server_out.flush()
 
 if __name__ == "__main__":
     run_client(HOST, PORT)
